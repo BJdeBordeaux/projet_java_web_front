@@ -17,7 +17,7 @@ import {StockRecordMetaData} from "../model/StockRecordMetaData";
   styleUrl: './stock-display.component.css'
 })
 export class StockDisplayComponent {
-  private URL_STOCK = 'https://projet-web-java-miage-psl.azurewebsites.net';
+  private readonly URL_STOCK = 'https://projet-web-java-miage-psl.azurewebsites.net';
   DataPointList: DataPoint[] | undefined;
 
   stock_key = 'IBM';
@@ -63,9 +63,6 @@ export class StockDisplayComponent {
     this.StockRequest = this.form.value.StockRequest;
     if (this.form.valid) {
       this.submitted = true;
-      this.stock_key = this.form.value.stock_key;
-      this.date_from = this.form.value.date_from;
-      this.date_to = this.form.value.date_to;
       this.StockRequest = this.form.value;
       // if only date_from is provided, then date_target = date_from and send a single day request
       if (this.StockRequest.date_from && !this.StockRequest.date_to) {
@@ -82,17 +79,36 @@ export class StockDisplayComponent {
       }
     } else {
       this.submitted = false;
+      return;
     }
+
+    // reset all properties to empty, so that the page can be re-rendered
+    this.DataPointList = undefined;
+    this.recordMetaData = undefined;
+    this.stock_key = '';
+    this.date_from = '';
+    this.date_to = '';
+
     // fetch stock data
     this.sendStockRequestService.fetchStockData(this.StockRequest)
       ?.pipe().subscribe(value => {
       this.DataPointList = value;
     });
+    // if 404, then display error message
+    // else, display stock data
+    if (this.DataPointList == null) {
+      console.error("Error: stock data is null");
+      return;
+    }
     // fetch stock record meta data
     this.sendStockRequestService.fetchRecordMetaData(this.StockRequest.stock_key)
       ?.pipe().subscribe(value => {
       this.recordMetaData = value;
     });
+    // update properties
+    this.stock_key = this.form.value.stock_key;
+    this.date_from = this.form.value.date_from;
+    this.date_to = this.form.value.date_to;
 
     // re-render the page without reloading
     this.router.navigateByUrl('/getStock', {skipLocationChange: true}).then(() => {
