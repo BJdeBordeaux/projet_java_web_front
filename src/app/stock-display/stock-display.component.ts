@@ -82,24 +82,11 @@ export class StockDisplayComponent {
       return;
     }
 
-    // reset all properties to empty, so that the page can be re-rendered
-    this.DataPointList = undefined;
-    this.recordMetaData = undefined;
-    this.stock_key = '';
-    this.date_from = '';
-    this.date_to = '';
-
     // fetch stock data
     this.sendStockRequestService.fetchStockData(this.StockRequest)
       ?.pipe().subscribe(value => {
       this.DataPointList = value;
     });
-    // if 404, then display error message
-    // else, display stock data
-    if (this.DataPointList == null) {
-      console.error("Error: stock data is null");
-      return;
-    }
     // fetch stock record meta data
     this.sendStockRequestService.fetchRecordMetaData(this.StockRequest.stock_key)
       ?.pipe().subscribe(value => {
