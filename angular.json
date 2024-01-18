@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "if_2023_angular": {
+    "projet_java_web_front": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/if_2023_angular",
+            "outputPath": "dist/projet_java_web_front",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "if_2023_angular:build:production"
+              "buildTarget": "projet_java_web_front:build:production"
             },
             "development": {
-              "buildTarget": "if_2023_angular:build:development"
+              "buildTarget": "projet_java_web_front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -69,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "if_2023_angular:build"
+            "buildTarget": "projet_java_web_front:build"
           }
         },
         "test": {
