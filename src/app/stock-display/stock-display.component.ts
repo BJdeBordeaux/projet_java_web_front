@@ -7,13 +7,12 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {Router, RouterLink} from "@angular/router";
 import {StockRequest} from "../model/StockRequest";
 import {SendStockRequestService} from "../service/send-stock-request.service";
-import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {StockRecordMetaData} from "../model/StockRecordMetaData";
 
 @Component({
   selector: 'app-stock-display',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, MatSlideToggle],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './stock-display.component.html',
   styleUrl: './stock-display.component.css'
 })
